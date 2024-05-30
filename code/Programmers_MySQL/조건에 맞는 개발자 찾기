@@ -1,0 +1,11 @@
+-- 코드를 작성해주세요
+SELECT distinct A.ID, A.EMAIL, A.FIRST_NAME, A.LAST_NAME
+FROM DEVELOPERS A
+INNER JOIN (SELECT `CODE` FROM SKILLCODES WHERE NAME = 'Python' OR NAME = 'C#') B
+ON A.SKILL_CODE % (B.CODE * 2) >= B.CODE
+ORDER BY A.ID; 
+
+/*
+개발자 스킬코드가 7(b'111)이면 코드값이 2인 스킬을 보유하는지 알려면
+코드값 * 2인 값인 4로 나눠서 그 나머지가 2보다 크거나 같은지 확인한다.
+*/
