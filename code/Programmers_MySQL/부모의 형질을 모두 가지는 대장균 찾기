@@ -1,0 +1,10 @@
+-- Lv. 2 SELECT
+SELECT
+    A.ID,
+    A.GENOTYPE,
+    B.GENOTYPE AS PARENT_GENOTYPE
+FROM ECOLI_DATA A -- 자식 개체용 테이블
+INNER JOIN ECOLI_DATA B -- 부모 개체용 테이블
+    ON A.PARENT_ID = B.ID -- 자식 개체에 부모 개체 연결
+WHERE A.GENOTYPE = (A.GENOTYPE | B.GENOTYPE) -- 자식이 부모의 형질을 갖는지 알려면 자식 형질과 부모의 형질의 or 연산을 한 결과값이 자식 형질과 같은지 보면 된다.
+ORDER BY A.ID
