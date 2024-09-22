@@ -1,0 +1,17 @@
+-- Lv.2 SUM,MAX,MIN
+SELECT
+    YEAR(A.DIFFERENTIATION_DATE) AS YEAR, -- 연도만 추출
+    (C.MAX - A.SIZE_OF_COLONY) AS YEAR_DEV, -- 대장균 크기 편차
+    A.ID
+FROM ECOLI_DATA A
+INNER JOIN ( -- 연도별로 가장 큰 대장균의 크기를 구해서 같은 연도끼리 붙여준다.
+    SELECT 
+        MAX(B.SIZE_OF_COLONY) AS MAX, -- 연도별로 가장 큰 대장균의 크기
+        YEAR(B.DIFFERENTIATION_DATE) AS YEAR -- 연도만 추출
+     FROM ECOLI_DATA B 
+     GROUP BY YEAR(B.DIFFERENTIATION_DATE)
+    ) C
+ON C.YEAR = YEAR(A.DIFFERENTIATION_DATE) -- 같은 연도끼리 붙이기
+ORDER BY YEAR(A.DIFFERENTIATION_DATE), YEAR_DEV -- 분화된 연도에 따라 오름차순, 대장균 크기 편차에 따라 오름차순
+
+참고하면 좋을 예시: https://school.programmers.co.kr/questions/78045
